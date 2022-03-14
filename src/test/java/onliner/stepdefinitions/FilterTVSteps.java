@@ -57,16 +57,20 @@ public class FilterTVSteps{
     @Then("correct search results are displayed")
     public void correctSearchResultsAreDisplayed(){
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(tvPage.isEachFilterResultHasTitleWithFilterValue(filtersData.get("BRAND")),
-                String.format("Not all Search Results contain provided Brand %s", filtersData.get("BRAND")));
-        softAssert.assertTrue(tvPage.isEachFilterResultWithinMinAndMaxRange(filtersData.get("MINDIAGONAL"), filtersData.get("MAXDIAGONAL")),
-                String.format("Not all Search Results contain Diagonal in a set range between %s and %s", filtersData.get("MINDIAGONAL"), filtersData.get("MAXDIAGONAL")));
-        softAssert.assertTrue(tvPage.isEachFilterResultContainsResolutionValue(filtersData.get("RESOLUTION")),
-                String.format("Not all Search Results contain provided  %s ", filtersData.get("RESOLUTION")));
-        softAssert.assertTrue(tvPage.isEachFilterResultHasPriceByFilterValue(filtersData.get("MAXPRICE")),
-                String.format("Not all Search Results have provided price %s", filtersData.get("MAXPRICE")));
+        if (tvPage.isEmptySearchResult() == true){
+            System.out.println("No result");
+        } else {
+            softAssert.assertTrue(tvPage.isEachFilterResultHasTitleWithFilterValue(filtersData.get("BRAND")),
+                    String.format("Not all Search Results contain provided Brand %s", filtersData.get("BRAND")));
+            softAssert.assertTrue(tvPage.isEachFilterResultWithinMinAndMaxRange(filtersData.get("MINDIAGONAL"), filtersData.get("MAXDIAGONAL")),
+                    String.format("Not all Search Results contain Diagonal in a set range between %s and %s", filtersData.get("MINDIAGONAL"), filtersData.get("MAXDIAGONAL")));
+            softAssert.assertTrue(tvPage.isEachFilterResultContainsResolutionValue(filtersData.get("RESOLUTION")),
+                    String.format("Not all Search Results contain provided  %s ", filtersData.get("RESOLUTION")));
+            softAssert.assertTrue(tvPage.isEachFilterResultHasPriceByFilterValue(filtersData.get("MAXPRICE")),
+                    String.format("Not all Search Results have provided price %s", filtersData.get("MAXPRICE")));
 
-        softAssert.assertAll();
+            softAssert.assertAll();
+        }
     }
 
     @After()

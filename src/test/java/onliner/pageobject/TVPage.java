@@ -4,6 +4,8 @@ import framework.BaseEntity;
 import framework.elements.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class TVPage extends BaseEntity {
     private final Label productTitle = new Label(By.className("schema-product__title"));
     private final Label productDescription = new Label(By.className("schema-product__description"));
     private final Label productPrice = new Label(By.xpath("//div[@class='schema-product__price']//span"));
+    public final Label noSuchElementMessage = new Label(By.xpath("//div[@class='schema-products__message']"));
 
     public TVPage() {
         super(TV_PAGE_TITLE, formName);
@@ -63,8 +66,16 @@ public class TVPage extends BaseEntity {
         }
     }
 
-    public boolean isEachFilterResultHasTitleWithFilterValue(String filterValue) {
+    public boolean isEmptySearchResult() {
         waitForFiltering();
+        List<WebElement> elements = productTitle.getElements();
+            if (elements.size() == 0){
+                return true;
+            }
+        return false;
+    }
+
+    public boolean isEachFilterResultHasTitleWithFilterValue(String filterValue) {
         List<WebElement> elements = productTitle.getElements();
         for (WebElement element : elements) {
             if (!element.getText().contains(filterValue)){
