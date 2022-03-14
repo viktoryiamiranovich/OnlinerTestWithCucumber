@@ -12,7 +12,7 @@ Feature: Filter Onliner Catalog products
   Scenario: Check several filters
     When User selects filters on TV page
       | BRAND       | Samsung             |
-      | MAXPRICE    | 1500                |
+      | MAXPRICE    | 1300                |
       | RESOLUTION  | 1920x1080 (Full HD) |
       | MINDIAGONAL | 40"                 |
       | MAXDIAGONAL | 50"                 |
