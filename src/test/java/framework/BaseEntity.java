@@ -40,11 +40,9 @@ public abstract class BaseEntity {
     }
 
     public void waitForFiltering(){
-        try {
             WebDriverWait wait = new WebDriverWait(driver, Integer.parseInt(resources.getProperty(CONDITION_WAIT)));
-            wait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(driver.findElement(By.xpath("//div[@class = 'schema-product__group']")))));
-        } catch (NoSuchElementException ignored){
-        }
+            wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.xpath("//div[@class = 'schema-product__group']"))));
+
     }
 
 }
