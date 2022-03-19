@@ -2,15 +2,11 @@ package framework.elements;
 
 import framework.Browser;
 import framework.PropertyReader;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -22,11 +18,11 @@ public class BaseElement {
     private static final String CONDITION_WAIT = "condition_wait";
 
     WebDriver driver = Browser.driver;
-    WebDriverWait wait = new WebDriverWait(driver, 5);
     By locator;
     WebElement element;
     List<WebElement> elementList;
     PropertyReader resources = new PropertyReader(PROPERTIES_FILE);
+    WebDriverWait wait = new WebDriverWait(driver, Integer.parseInt(resources.getProperty(IMPLICIT_WAIT)));
 
     public BaseElement(By locator){
         this.locator = locator;
@@ -57,6 +53,7 @@ public class BaseElement {
     }
 
     public List<WebElement> getElementList(){
+        waitRefreshedStaleness();
         if (arePresent()) return elementList;
         else return null;
     }
@@ -140,7 +137,6 @@ public class BaseElement {
                 .until(driver -> driver.findElements(locator));
     }
 
-
     public void waitForPageToLoad() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(resources.getProperty(IMPLICIT_WAIT))));
         try {
@@ -154,6 +150,14 @@ public class BaseElement {
             });
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void waitRefreshedStaleness(){
+        try {
+            new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(resources.getProperty(CONDITION_WAIT)))).
+                    until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(driver.findElement(locator))));
+        } catch (TimeoutException ignore) {
         }
     }
 }

@@ -1,20 +1,19 @@
 package onliner.pageobject;
 
-import framework.BaseEntity;
+import framework.BasePage;
 import framework.elements.Label;
 import org.openqa.selenium.By;
 
 
-public class HomePage extends BaseEntity {
+public class HomePage extends BasePage {
 
-    private static By ONLINER_LOGO = By.className("b-top-logo");
     private static String formName = HomePage.class.getName();
+    private static String logoForCheck = "b-top-logo";
     String sectionNavLabelXpath = "//header/h2/a[contains(text(), '%s')]";
 
     public HomePage() {
-        super(ONLINER_LOGO,formName);
+        super(By.className(logoForCheck),formName);
     }
-
 
     public void navigateSection(String mainSectionName){
         Label sectionNameForNavigate = new Label(By.xpath(String.format(sectionNavLabelXpath, mainSectionName)));

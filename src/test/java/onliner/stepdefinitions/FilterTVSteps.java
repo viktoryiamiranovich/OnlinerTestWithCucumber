@@ -29,7 +29,7 @@ public class FilterTVSteps{
         homePage = new HomePage();
     }
 
-    @And("User clicks {string} on Onliner Home Page")
+    @When("User clicks {string} on Onliner Home Page")
     public void userNavigateToSection(String menuSection){
         homePage.navigateSection(menuSection);
     }
@@ -46,7 +46,7 @@ public class FilterTVSteps{
         tvPage = new TVPage();
     }
 
-    @When("User selects filters on TV page")
+    @And("User selects filters on TV page")
     public void userSelectFiltersOnProductsPage(Map<String,String> userFilters){
         userFilters.forEach((title, value) -> {
             tvPage.setFilter(Filters.valueOf(title), value);

@@ -1,19 +1,17 @@
 package onliner.pageobject;
 
-import framework.BaseEntity;
+import framework.BasePage;
 import framework.elements.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
 
-public class TVPage extends BaseEntity {
+public class TVPage extends BasePage {
 
-    private static By TV_PAGE_TITLE = By.xpath("//h1[contains(text(), 'Телевизоры')]");
     private static String formName = TVPage.class.getName();
+    private static String tvPageLabel = "//h1[contains(text(), 'Телевизоры')]";
 
     private String checkboxFilterLocator = "//div[@class='schema-filter__label']/span[contains(text(),'%s')]/../following-sibling::div//span[contains(text(),'%s')]";
     private String textboxFilterLocator = "//div[@class='schema-filter__label']/following-sibling::div//input[@placeholder='%s']";
@@ -22,10 +20,9 @@ public class TVPage extends BaseEntity {
     private final Label productTitle = new Label(By.className("schema-product__title"));
     private final Label productDescription = new Label(By.className("schema-product__description"));
     private final Label productPrice = new Label(By.xpath("//div[@class='schema-product__price']//span"));
-    public final Label noSuchElementMessage = new Label(By.xpath("//div[@class='schema-products__message']"));
 
     public TVPage() {
-        super(TV_PAGE_TITLE, formName);
+        super(By.xpath(tvPageLabel), formName);
     }
 
     public void setCheckBoxFilter(String filterName, String filterValue) {
@@ -67,9 +64,8 @@ public class TVPage extends BaseEntity {
     }
 
     public boolean isEmptySearchResult() {
-        waitForFiltering();
-        List<WebElement> elements = productTitle.getElements();
-            if (elements.size() == 0){
+        List<WebElement> elements = productTitle.getElementList();
+            if (elements == null){
                 return true;
             }
         return false;

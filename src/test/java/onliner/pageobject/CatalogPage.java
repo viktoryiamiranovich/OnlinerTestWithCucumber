@@ -1,13 +1,13 @@
 package onliner.pageobject;
 
-import framework.BaseEntity;
+import framework.BasePage;
 import framework.elements.Dropdown;
 import framework.elements.Label;
 import org.openqa.selenium.By;
 
-public class CatalogPage extends BaseEntity {
+public class CatalogPage extends BasePage {
 
-    private static By CATALOG_PAGE_TITLE = By.className("catalog-navigation__title");
+    private static String catalogPageTitle = "catalog-navigation__title";
     private static String formName = CatalogPage.class.getName();
 
     private String mainTitleXpath = "//span[@class = 'catalog-navigation-classifier__item-title-wrapper'][contains(text(), '%s')]";
@@ -15,7 +15,7 @@ public class CatalogPage extends BaseEntity {
     private String dropdownTitleXpath = "//span[@class='catalog-navigation-list__dropdown-title'][contains(text(), '%s')]";
 
     public CatalogPage(){
-        super (CATALOG_PAGE_TITLE, formName);
+        super (By.className(catalogPageTitle), formName);
     }
 
     public void mainMenuNavigation(String mainTitle) {
