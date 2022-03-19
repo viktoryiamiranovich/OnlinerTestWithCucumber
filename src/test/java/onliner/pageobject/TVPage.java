@@ -11,35 +11,35 @@ import java.util.List;
 public class TVPage extends BasePage {
 
     private static String formName = TVPage.class.getName();
-    private static String tvPageLabel = "//h1[contains(text(), 'Телевизоры')]";
+    private static String txtUniqueElement = "//div[@class = 'schema-header']//h1[contains(%s, 'Телевизоры')]";
 
     private String checkboxFilterLocator = "//div[@class='schema-filter__label']/span[contains(text(),'%s')]/../following-sibling::div//span[contains(text(),'%s')]";
     private String textboxFilterLocator = "//div[@class='schema-filter__label']/following-sibling::div//input[@placeholder='%s']";
     private String dropdownFilterLocator = "//div[@class='schema-filter__label']/span/../following-sibling::div//select[contains(@data-bind, 'value: %s')]";
 
-    private final Label productTitle = new Label(By.className("schema-product__title"));
-    private final Label productDescription = new Label(By.className("schema-product__description"));
-    private final Label productPrice = new Label(By.xpath("//div[@class='schema-product__price']//span"));
+    private final Label productTitle = new Label(By.className("schema-product__title"), "");
+    private final Label productDescription = new Label(By.className("schema-product__description"), "");
+    private final Label productPrice = new Label(By.xpath("//div[@class='schema-product__price']//span"), "");
 
     public TVPage() {
-        super(By.xpath(tvPageLabel), formName);
+        super(By.xpath(txtUniqueElement), formName);
     }
 
     public void setCheckBoxFilter(String filterName, String filterValue) {
-        CheckBox checkBoxFilter = new CheckBox(By.xpath(String.format(checkboxFilterLocator, filterName, filterValue)));
+        CheckBox checkBoxFilter = new CheckBox(By.xpath(String.format(checkboxFilterLocator, filterName, filterValue)), filterName);
         checkBoxFilter.scrollToElement();
         checkBoxFilter.clickAndWait();
     }
 
     public void setTextBoxFilter(String filterName, String filterValue) {
-        TextBox textBoxFilter = new TextBox(By.xpath(String.format(textboxFilterLocator, filterName)));
+        TextBox textBoxFilter = new TextBox(By.xpath(String.format(textboxFilterLocator, filterName)), filterName);
         textBoxFilter.scrollToElement();
         textBoxFilter.sendKeys(filterValue);
         textBoxFilter.waitForPageToLoad();
     }
 
     public void setDropdownFilter(String filterName, String filterValue) {
-        Dropdown dropdownFilter = new Dropdown(By.xpath(String.format(dropdownFilterLocator, filterName)));
+        Dropdown dropdownFilter = new Dropdown(By.xpath(String.format(dropdownFilterLocator, filterName)), filterName);
         dropdownFilter.scrollToElement();
         dropdownFilter.select(filterValue);
         dropdownFilter.waitForPageToLoad();

@@ -19,13 +19,15 @@ public class BaseElement {
 
     WebDriver driver = Browser.driver;
     By locator;
+    String name;
     WebElement element;
     List<WebElement> elementList;
     PropertyReader resources = new PropertyReader(PROPERTIES_FILE);
     WebDriverWait wait = new WebDriverWait(driver, Integer.parseInt(resources.getProperty(IMPLICIT_WAIT)));
 
-    public BaseElement(By locator){
+    public BaseElement(By locator, String name){
         this.locator = locator;
+        this.name = name;
     }
 
     public void click() {

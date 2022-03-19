@@ -5,8 +5,8 @@ import org.openqa.selenium.support.ui.Select;
 
 public class Dropdown extends BaseElement{
 
-    public Dropdown(By locator) {
-        super(locator);
+    public Dropdown(By locator, String name) {
+        super(locator, name);
     }
 
     public void select(String value){

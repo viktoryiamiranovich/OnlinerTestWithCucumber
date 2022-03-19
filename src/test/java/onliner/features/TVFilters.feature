@@ -9,7 +9,7 @@ Feature: Filter Onliner Catalog products
     And moves to 'Телевидение и видео' and open 'Телевизоры' section
     And User selects filters on TV page
       | BRAND       | Samsung             |
-      | MAXPRICE    | 1500                |
+      | MAXPRICE    | 2000                |
       | RESOLUTION  | 1920x1080 (Full HD) |
       | MINDIAGONAL | 40"                 |
       | MAXDIAGONAL | 50"                 |

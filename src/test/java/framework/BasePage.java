@@ -12,7 +12,7 @@ public abstract class BasePage {
 
 
     public BasePage(By locator, String title) {
-        baseElement = new BaseElement(locator);
+        baseElement = new BaseElement(locator, title);
         init(locator, title);
         assertIsOpen();
     }
